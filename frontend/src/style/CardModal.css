@@ -1,0 +1,83 @@
+/* Modal arka plan: ekranı karartır ve modal ortalanır */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; /* diğer içeriklerin üstünde */
+}
+
+/* Modal kutusu: başlık, input ve butonlar içerir */
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 12px;
+  width: 350px;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+/* Modal başlığı */
+.modal-content h3 {
+  margin-bottom: 15px;
+}
+
+/* Input, textarea ve renk seçici stili */
+.modal-content input,
+.modal-content textarea,
+.modal-content input[type="color"] {
+  width: 100%;
+  padding: auto;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #1e1e1e;
+  color: white;
+  margin-bottom: 12px;
+}
+
+/* Açıklama alanı boyutu ve sabitleme */
+.modal-content textarea {
+  resize: none;
+  height: 80px;
+}
+
+/* Modal altındaki işlem butonları */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Genel buton stili */
+.modal-actions button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* İptal butonu stili */
+.modal-actions button:first-child {
+  background: #555;
+  color: white;
+}
+
+.modal-actions button:first-child:hover {
+  background: #666;
+}
+
+/* Kaydet/Ekle/Güncelle butonu stili */
+.modal-actions button:last-child {
+  background: #007bff;
+  color: white;
+}
+
+.modal-actions button:last-child:hover {
+  background: #0056b3;
+}

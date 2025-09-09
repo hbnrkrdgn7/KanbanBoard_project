@@ -1,0 +1,211 @@
+/* Genel board container ve temel stil */
+.board-container {
+  display: flex;
+  height: 100vh;
+  background: #111;
+  color: white;
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Hamburger menü: her zaman görünür ve tıklanabilir */
+.hamburger {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 50;
+  background: #1e1e1e;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Sol sidebar ve animasyonlar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 220px;
+  padding: 15px;
+  background: #1e1e1e;
+  border-right: 1px solid #333;
+  transform: translateX(-220px);
+  transition: transform 0.3s ease;
+  z-index: 20;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Açık sidebar */
+}
+
+.sidebar.closed {
+  transform: translateX(-255px); /* Kapalı sidebar */
+}
+
+/* Sidebar içindeki liste */
+.sidebar-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Board başlıkları ve liste elemanları */
+.sidebar h3 {
+  margin-top: 60px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sidebar li {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.sidebar li:hover {
+  background: #333;
+}
+
+.sidebar li.active {
+  background: #555; /* Aktif board işareti */
+}
+
+/* Sidebar buton stili */
+.sidebar button {
+  padding: 10px;
+  border-radius: 6px;
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.sidebar button:hover {
+  background: #e03a3c;
+}
+
+/* Board detay alanı */
+.board-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 0;
+  justify-content: center;
+  overflow-x: auto;
+  transition: margin-left 0.3s ease;
+}
+
+.board-content.shifted {
+  margin-left: 220px; /* Sidebar açıkken sağa kaydır */
+}
+
+/* Board başlığı */
+.board-content h1 {
+  margin-left: 30px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+/* Listeler container */
+.lists-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+
+/* Liste kutusu */
+.list {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 15px;
+  min-width: 250px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Liste başlığı ve ekle butonu */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.list-header h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.list-header button {
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.list-header button:hover {
+  background: #555;
+}
+
+/* Kart stili */
+.card {
+  border-radius: 8px;
+  padding: 10px;
+  margin: 8px 0;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card strong {
+  font-size: 16px;
+}
+
+.card p {
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+
+/* Kart üzerindeki işlem butonları */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card-actions button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Responsive: küçük ekranlarda sidebar ve içerik ayarları */
+@media screen and (max-width: 768px) {
+  .board-content.shifted {
+    margin-left: 200px;
+  }
+
+  .sidebar {
+    width: 200px;
+  }
+}
