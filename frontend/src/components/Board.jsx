@@ -11,7 +11,7 @@ function Board() {
   const navigate = useNavigate(); // Sayfa yönlendirme
 
   // State'ler
-  const [allBoards, setAllBoards] = useState([]); 
+  const [allBoards, setAllBoards] = useState([]);
   const [board, setBoard] = useState(null);       
   const [lists, setLists] = useState([]);         
   const [editingCard, setEditingCard] = useState(null); 
@@ -157,7 +157,7 @@ function Board() {
                 </li>
               ))}
             </ul>
-            <button onClick={() => navigate("/")}>Çıkış</button>
+            <button onClick={() => navigate("/")}>Ana Sayfaya Dön</button>
           </div>
         )}
       </div>

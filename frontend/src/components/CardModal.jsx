@@ -15,11 +15,12 @@ function CardModal({ show, onClose, onSave, listId, card }) {
     if (card) {
       setTitle(card.title || "");
       setDescription(card.description || "");
+      setColor(card.color || "")
     } else {
       // Yeni kart ekleme durumunda inputları sıfırla
       setTitle("");
       setDescription("");
-     
+      setColor("")
     }
   }, [card, show]);
 
