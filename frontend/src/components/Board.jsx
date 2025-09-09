@@ -18,6 +18,7 @@ function Board() {
   const [showModal, setShowModal] = useState(false);    
   const [activeListId, setActiveListId] = useState(null); 
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768); 
+  const [recentBoards, setRecentBoards] = useState([]); // Son gezilen boardlar
 
   useEffect(() => {
     fetchAllBoards(); // Tüm boardları al
@@ -46,6 +47,13 @@ function Board() {
       const data = await BoardService.getBoardById(id);
       setBoard(data.board);
       setLists(data.lists);
+
+      // Son gezilen boardları localStorage'dan al
+      const stored = JSON.parse(localStorage.getItem("recentBoards")) || [];
+      const updated = [data.board, ...stored.filter(b => b.id !== data.board.id)];
+      const sliced = updated.slice(0, 5); // En fazla 5 board sakla
+      setRecentBoards(sliced);
+      localStorage.setItem("recentBoards", JSON.stringify(sliced));
     } catch (err) {
       console.error("Board detayları alınamadı:", err);
     }
@@ -56,7 +64,6 @@ function Board() {
     if (!title.trim()) return; // Boş başlık ekleme
     try {
       const newCard = await CardService.addCard({ list_id: listId, title, description, color });
-      // Listeye yeni kartı ekle
       setLists(prevLists =>
         prevLists.map(list =>
           list.id === listId ? { ...list, cards: [...list.cards, newCard] } : list
@@ -75,7 +82,6 @@ function Board() {
         color: updatedCard.color,
         list_id: updatedCard.listId
       });
-      // Listeyi güncelle, ilgili kartı değiştir
       setLists(prevLists =>
         prevLists.map(list =>
           list.id === updatedCard.listId
@@ -91,7 +97,6 @@ function Board() {
   const handleDeleteCard = async (cardId, listId) => {
     try {
       await CardService.deleteCard(cardId);
-      // Silinen kartı listeden çıkar
       setLists(prevLists =>
         prevLists.map(list =>
           list.id === listId
@@ -107,11 +112,10 @@ function Board() {
   // Drag & Drop işlemi
   const handleDragEnd = async (result) => {
     const { source, destination, draggableId } = result;
-    if (!destination) return; // Hedef yoksa çık
+    if (!destination) return;
     if (source.droppableId === destination.droppableId &&
-        source.index === destination.index) return; // Yer değiştirmemişse çık
+        source.index === destination.index) return;
 
-    // Kartları güncelle
     const newLists = [...lists];
     const sourceList = newLists.find(l => l.id.toString() === source.droppableId);
     const destList = newLists.find(l => l.id.toString() === destination.droppableId);
@@ -130,7 +134,6 @@ function Board() {
     }
   };
 
-  // Board yüklenmemişse loading göster
   if (!board) return <div>Loading...</div>;
 
   return (
@@ -168,13 +171,11 @@ function Board() {
               <Droppable key={list.id} droppableId={String(list.id)}>
                 {(provided) => (
                   <div className="list" ref={provided.innerRef} {...provided.droppableProps}>
-                    {/* Liste başlığı ve kart ekleme butonu */}
                     <div className="list-header">
                       <h3>{list.name}</h3>
                       <button onClick={() => { setActiveListId(list.id); setEditingCard(null); setShowModal(true); }}>+</button>
                     </div>
 
-                    {/* Liste kartları */}
                     {list.cards.map((card, index) => (
                       <Draggable key={card.id} draggableId={String(card.id)} index={index}>
                         {(provided) => (
@@ -212,6 +213,18 @@ function Board() {
         listId={activeListId}
         card={editingCard}
       />
+
+      {/* Son Gezilenler kutusu */}
+      <div className="recent-boards">
+        <h4>Son Gezilenler</h4>
+        <ul>
+          {recentBoards.map(b => (
+            <li key={b.id} onClick={() => navigate(`/boards/${b.id}`)}>
+              {b.name}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

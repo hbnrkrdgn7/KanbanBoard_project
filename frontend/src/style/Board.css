@@ -198,6 +198,40 @@
   cursor: pointer;
   font-size: 16px;
 }
+/* Son Gezilenler kutusu */
+.recent-boards {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  width: 200px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.recent-boards h4 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+.recent-boards ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.recent-boards li {
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: color 0.2s;
+}
+
+.recent-boards li:hover {
+  color: #ff4d4f;
+}
+
 
 /* Responsive: küçük ekranlarda sidebar ve içerik ayarları */
 @media screen and (max-width: 768px) {
